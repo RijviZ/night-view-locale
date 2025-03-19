@@ -6,6 +6,7 @@ import 'package:nightview/app_localization.dart';
 import 'package:nightview/constants/colors.dart';
 import 'package:nightview/constants/text_styles.dart';
 import 'package:nightview/constants/values.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/models/users/friend_request.dart';
 import 'package:nightview/helpers/users/friends/friend_request_helper.dart';
 import 'package:nightview/helpers/users/friends/friends_helper.dart';
@@ -70,7 +71,7 @@ class _FriendRequestsScreenState extends State<FriendRequestsScreen> {
               width: double.maxFinite,
               child: Text(
                 // AppLocalizations.of(context)!.friendRequests,
-                'Venneanmodninger',
+                S.of(context).friend_requests,
                 style: kTextStyleH2,
               ),
             ),

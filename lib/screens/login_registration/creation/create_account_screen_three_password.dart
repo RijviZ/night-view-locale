@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nightview/app_localization.dart';
 import 'package:nightview/constants/colors.dart';
 import 'package:nightview/constants/text_styles.dart';
 import 'package:nightview/constants/values.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/helpers/misc/referral_points_helper.dart';
 import 'package:nightview/providers/global_provider.dart';
 import 'package:nightview/providers/login_registration_provider.dart';
@@ -34,7 +34,7 @@ class _CreateAccountScreenThreePasswordState
   void initState() {
     super.initState();
     final provider =
-        Provider.of<LoginRegistrationProvider>(context, listen: false);
+    Provider.of<LoginRegistrationProvider>(context, listen: false);
 
     InitStateManager.initPasswordInfo(
         context: context,
@@ -60,15 +60,15 @@ class _CreateAccountScreenThreePasswordState
         title: Column(
           children: [
             Text(
-              AppLocalizations.of(context)!.choosePassword,
+              S.of(context).choose_password,
               textAlign: TextAlign.center,
-              style: kTextStyleH2,
+              style: kTextStyleH1,
             ),
-            SizedBox(height: kNormalSpacerValue), // Adjust spacing as needed
+            SizedBox(height: kNormalSpacerValue),
             Text(
-              AppLocalizations.of(context)!.passwordRequirements,
+              S.of(context).password_requirements,
               textAlign: TextAlign.center,
-              style: kTextStyleP3, // Use a smaller text style
+              style: kTextStyleP3,
             ),
           ],
         ),
@@ -81,7 +81,7 @@ class _CreateAccountScreenThreePasswordState
               children: [
                 CustomTextField.buildTextField(
                   controller: passwordController,
-                  hintText: AppLocalizations.of(context)!.password,
+                  hintText: S.of(context).password,
                   keyboardType: TextInputType.visiblePassword,
                   onChanged: (value) {
                     ValidationHelper.updateValidationStateFormThree(
@@ -95,18 +95,16 @@ class _CreateAccountScreenThreePasswordState
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.passwordEmptyError;
+                      return S.of(context).password_empty;
                     }
                     if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])').hasMatch(value)) {
-                      return AppLocalizations.of(context)!
-                          .passwordUpperLowerError;
+                      return S.of(context).require_uppercase_lowercase;
                     }
                     if (!RegExp(r'^(?=.*?[0-9])').hasMatch(value)) {
-                      return AppLocalizations.of(context)!.passwordDigitError;
+                      return S.of(context).require_number;
                     }
                     if (!RegExp(r'^.{8,}').hasMatch(value)) {
-                      return AppLocalizations.of(context)!
-                          .passwordMinLengthError;
+                      return S.of(context).minimum_length;
                     }
                     return null;
                   },
@@ -116,7 +114,7 @@ class _CreateAccountScreenThreePasswordState
                 ),
                 CustomTextField.buildTextField(
                   controller: confirmPasswordController,
-                  hintText: AppLocalizations.of(context)!.confirmPasswordHint,
+                  hintText: S.of(context).confirm_password,
                   isObscure: true,
                   keyboardType: TextInputType.visiblePassword,
                   onChanged: (value) {
@@ -131,12 +129,10 @@ class _CreateAccountScreenThreePasswordState
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .confirmPasswordEmptyError;
+                      return S.of(context).enter_password;
                     }
                     if (passwordController.text != value) {
-                      return AppLocalizations.of(context)!
-                          .passwordMismatchError;
+                      return S.of(context).password_mismatch;
                     }
                     return null;
                   },
@@ -159,21 +155,21 @@ class _CreateAccountScreenThreePasswordState
                 await Provider.of<GlobalProvider>(context, listen: false)
                     .userDataHelper
                     .createUserWithEmail(
-                      email: provider.mail,
-                      password: provider.password,
-                    );
+                  email: provider.mail,
+                  password: provider.password,
+                );
 
                 await Provider.of<GlobalProvider>(context, listen: false)
                     .userDataHelper
                     .uploadUserData(
-                      firstName: provider.firstName,
-                      lastName: provider.lastName,
-                      mail: provider.mail,
-                      phone: provider.phone,
-                      birthdateDay: provider.birthDate.day,
-                      birthdateMonth: provider.birthDate.month,
-                      birthdateYear: provider.birthDate.year,
-                    );
+                  firstName: provider.firstName,
+                  lastName: provider.lastName,
+                  mail: provider.mail,
+                  phone: provider.phone,
+                  birthdateDay: provider.birthDate.day,
+                  birthdateMonth: provider.birthDate.month,
+                  birthdateYear: provider.birthDate.year,
+                );
 
                 ReferralPointsHelper.incrementReferralPoints(1);
                 Navigator.of(context)
@@ -183,34 +179,24 @@ class _CreateAccountScreenThreePasswordState
                 prefs.setString('mail', provider.mail);
                 prefs.setString('password', provider.password);
               } catch (e) {
-                String errorMessage =
-                    AppLocalizations.of(context)!.somethingWentWrong;
+                String errorMessage = S.of(context).generic_error;
 
                 if (e is FirebaseAuthException) {
                   switch (e.code) {
                     case 'email-already-in-use':
-                      errorMessage =
-                          AppLocalizations.of(context)!.emailAlreadyInUseError;
-
+                      errorMessage = S.of(context).email_already_registered;
                       break;
                     case 'invalid-email':
-                      errorMessage =
-                          AppLocalizations.of(context)!.invalidEmailError;
-
+                      errorMessage = S.of(context).invalid_email;
                       break;
                     case 'weak-password':
-                      errorMessage =
-                          AppLocalizations.of(context)!.weakPasswordError;
-
+                      errorMessage = S.of(context).weak_password;
                       break;
                     case 'network-request-failed':
-                      errorMessage =
-                          AppLocalizations.of(context)!.noInternetError;
-
+                      errorMessage = S.of(context).no_internet;
                       break;
                     default:
-                      errorMessage =
-                          AppLocalizations.of(context)!.genericErrorOccurred;
+                      errorMessage = '${S.of(context).error_occurred}: ${e.message}';
                   }
                 }
 
@@ -218,7 +204,7 @@ class _CreateAccountScreenThreePasswordState
                   context: context,
                   builder: (context) => AlertDialog(
                     title: Text(
-                      AppLocalizations.of(context)!.errorTitle,
+                      S.of(context).error,
                       style: TextStyle(color: redAccent),
                     ),
                     content: SingleChildScrollView(
@@ -230,7 +216,7 @@ class _CreateAccountScreenThreePasswordState
                           Navigator.of(context).pop();
                         },
                         child: Text(
-                          'OK',
+                          S.of(context).ok,
                           style: TextStyle(color: redAccent),
                         ),
                       ),

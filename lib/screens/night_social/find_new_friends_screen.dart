@@ -4,6 +4,7 @@ import 'package:nightview/constants/colors.dart';
 import 'package:nightview/constants/input_decorations.dart';
 import 'package:nightview/constants/text_styles.dart';
 import 'package:nightview/constants/values.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/helpers/users/friends/friend_request_helper.dart';
 import 'package:nightview/helpers/users/friends/search_friends_helper.dart';
 import 'package:nightview/models/users/user_data.dart';
@@ -52,7 +53,7 @@ class _FindNewFriendsScreenState extends State<FindNewFriendsScreen> {
               width: double.maxFinite,
               child: Text(
                 // AppLocalizations.of(context)!.findNewFriends,
-                'Find nye venner',
+                S.of(context).find_friends,
                 style: kTextStyleH1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -73,7 +74,7 @@ class _FindNewFriendsScreenState extends State<FindNewFriendsScreen> {
                   Expanded(
                     child: TextField(
                       decoration: kSearchInputDecoration.copyWith(
-                        hintText: 'Skriv navn',
+                        hintText: S.of(context).enter_name,
                       ),
                       textCapitalization: TextCapitalization.words,
                       cursorColor: primaryColor,

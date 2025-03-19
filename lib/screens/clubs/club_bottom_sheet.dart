@@ -5,6 +5,7 @@ import 'package:nightview/app_localization.dart';
 import 'package:nightview/constants/enums.dart';
 import 'package:nightview/constants/text_styles.dart';
 import 'package:nightview/constants/values.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/models/clubs/club_data.dart';
 import 'package:nightview/screens/night_map/night_map_main_offer_screen.dart';
 import 'package:nightview/utilities/club_data/club_name_formatter.dart';
@@ -34,17 +35,17 @@ class ClubBottomSheet {
       bodyBuilder: (context, offset) => SliverChildListDelegate(
         club.offerType == OfferType.none
             ? [
-                centerContainer(),
+                centerContainer(context),
                 Center(
                   child: Text(
-                    '${ClubNameFormatter.displayClubName(club)} har intet tilbud lige nu',
+                    '${ClubNameFormatter.displayClubName(club)} ${S.of(context).no_current_offer}',
                     // AppLocalizations.of(context)!.noOfferRightNow
                     style: kTextStyleP3, // Add your desired text style
                   ),
                 )
               ]
             : [
-                centerContainer(),
+                centerContainer(context),
                 SizedBox(
                   height: kNormalSpacerValue,
                 ),
@@ -74,12 +75,12 @@ class ClubBottomSheet {
     );
   }
 
-  static Container centerContainer() {
+  static Container centerContainer(BuildContext context) {
     return Container(
       alignment: Alignment.topCenter,
       child: Text(
         // AppLocalizations.of(context)!.mainOffer,
-        'Hovedtilbud',
+        S.of(context).main_offer,
         style: kTextStyleH1,
       ),
     );

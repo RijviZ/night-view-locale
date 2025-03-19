@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nightview/constants/colors.dart';
 import 'package:nightview/constants/icons.dart';
 import 'package:nightview/constants/text_styles.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/models/clubs/club_data.dart';
+import 'package:nightview/providers/locale_provider.dart';
+import 'package:provider/provider.dart';
 
 class CustomPopupMenuButtonOpeningHours extends StatelessWidget {
   final ClubData club;
@@ -35,6 +38,9 @@ class CustomPopupMenuButtonOpeningHours extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LocaleProvider>(context);
+    final currentLocale = provider.locale ?? const Locale('en');
+
     final openingHours = club.openingHours;
 
     // Filter and sort opening hours
@@ -62,8 +68,9 @@ class CustomPopupMenuButtonOpeningHours extends StatelessWidget {
           PopupMenuItem(
             value: null,
             child: Text(
-              // AppLocalizations.of(context)!.unknownOpeningHours,
-              'Ukendte åbningstider', // "No opening hours" in Danish
+              S
+                  .of(context)
+                  .unknown_opening_hours, // "No opening hours" in Danish
               style: kTextStyleP1,
             ),
           ),
@@ -81,7 +88,9 @@ class CustomPopupMenuButtonOpeningHours extends StatelessWidget {
       itemBuilder: (context) {
         return filteredOpeningHours.map((entry) {
           final englishDay = entry.key; // The English key (e.g., "monday")
-          final danishDay = _mapDayToDanish(englishDay); // Convert to Danish
+          final danishDay = currentLocale == Locale('en')
+              ? englishDay
+              : _mapDayToDanish(englishDay); // Convert to Danish
           final hours = entry.value;
           final openTime = hours?['open'];
           final closeTime = hours?['close'];

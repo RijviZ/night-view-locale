@@ -5,10 +5,12 @@ import 'package:nightview/constants/colors.dart';
 import 'package:nightview/constants/enums.dart';
 import 'package:nightview/constants/icons.dart';
 import 'package:nightview/constants/values.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/providers/global_provider.dart';
 import 'package:nightview/screens/login_registration/choice/login_or_create_account_screen.dart';
 import 'package:nightview/screens/profile/my_profile_main_screen.dart';
 import 'package:nightview/screens/option_menu/bottom_sheet_status_screen.dart';
+import 'package:nightview/widgets/icons/flag_top_right_drop_down.dart';
 import 'package:nightview/widgets/stateless/language_switcher.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,7 +76,7 @@ class _SideSheetMainScreenState extends State<SideSheetMainScreen> {
                   ),
                 ),
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.profile),
+                  title: Text(S.of(context).profile),
                   leading: CircleAvatar(
                     backgroundImage:
                         Provider.of<GlobalProvider>(context).profilePicture,
@@ -91,10 +93,7 @@ class _SideSheetMainScreenState extends State<SideSheetMainScreen> {
                       //  SizedBox(
                       //     width: 30.0), // Add some spacing between dot and flag
 
-                      CircleAvatar(
-                        backgroundImage: AssetImage('images/flags/dk.png'),
-                        radius: 15.0,
-                      ),
+                      LanguageFlagDropdown()
 
                       // LanguageSwitcher(
                       //   radius: 15.0,

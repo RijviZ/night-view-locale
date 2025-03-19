@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nightview/app_localization.dart';
 import 'package:nightview/firebase_options.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/helpers/clubs/club_data_helper.dart';
 import 'package:nightview/helpers/users/chats/chat_subscriber.dart';
 import 'package:nightview/helpers/users/chats/search_new_chat_helper.dart';
@@ -45,10 +46,16 @@ import 'package:flutter_localizations/flutter_localizations.dart'; // Add this
 import 'constants/Initializator.dart';
 import 'constants/colors.dart';
 import 'never_used/preferences/preferences_main_screen.dart';
-import ''; // Your AppLocalizations file
+import '';
+import 'providers/locale_provider.dart'; // Your AppLocalizations file
+
+GlobalKey<NavigatorState> ourNavigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final localeProvider = LocaleProvider();
+  await localeProvider.loadLocale();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -95,27 +102,25 @@ class NightViewApp extends StatelessWidget {
           create: (_) => BalladefabrikkenProvider(),
         ),
         ChangeNotifierProvider(create: (_) => ClubDataHelper()),
-        ChangeNotifierProvider<LanguageProvider>(
+        ChangeNotifierProvider<LocaleProvider>(
           // Add LanguageProvider
-          create: (_) => LanguageProvider(),
+          create: (_) => LocaleProvider(),
         ),
       ],
-      child: Consumer<LanguageProvider>(
+      child: Consumer<LocaleProvider>(
         // Wrap MaterialApp with Consumer for language updates
         builder: (context, languageProvider, child) {
           return MaterialApp(
-            locale: languageProvider.locale, // Use selected locale
-            supportedLocales: const [
-              Locale('en'), // English
-              Locale('da'), // Danish
-              //TODO Add more languages as needed.
-            ],
+            navigatorKey: ourNavigatorKey,
+            locale: languageProvider.locale,
             localizationsDelegates: const [
-              AppLocalizations.delegate, // Your custom delegate
+              S.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
+            supportedLocales: S.delegate.supportedLocales,
+
             theme: ThemeData.dark().copyWith(
               scaffoldBackgroundColor: black,
               appBarTheme: const AppBarTheme(

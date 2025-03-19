@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nightview/app_localization.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/providers/global_provider.dart';
 import 'package:nightview/screens/login_registration/login/login_google_screen.dart';
 import 'package:nightview/screens/login_registration/utility/custom_dialog_helper.dart';
@@ -17,8 +18,9 @@ class GoogleSignInHelper {
       if (googleAccount == null) {
         CustomDialogHelper.showErrorDialog(
             context,
-            AppLocalizations.of(context)!.googleLoginAbortedTitle,
-            AppLocalizations.of(context)!.googleLoginAbortedMessage);
+            S.of(context).error,
+            S.of(context).google_login_cancelled
+        );
         return;
       }
 
@@ -34,8 +36,9 @@ class GoogleSignInHelper {
     } catch (error) {
       CustomDialogHelper.showErrorDialog(
           context,
-          AppLocalizations.of(context)!.googleLoginFailedTitle,
-          AppLocalizations.of(context)!.googleLoginFailedMessage);
+          S.of(context).error,
+          S.of(context).google_login_error
+      );
     }
   }
 }

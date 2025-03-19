@@ -5,6 +5,7 @@ import 'package:nightview/constants/colors.dart';
 import 'package:nightview/constants/icons.dart';
 import 'package:nightview/constants/text_styles.dart';
 import 'package:nightview/constants/values.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/models/clubs/club_data.dart';
 import 'package:nightview/utilities/club_data/club_age_restriction_formatter.dart';
 import 'package:nightview/utilities/club_data/club_capacity_calculator.dart';
@@ -221,7 +222,7 @@ class ClubHeader extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 4.0),
                     child: Text(
                       // AppLocalizations.of(context)!.capacity,
-                      "Kapacitet",
+                      S.of(context).capacity,
                       style: kTextStyleP1,
                     ),
                   ),

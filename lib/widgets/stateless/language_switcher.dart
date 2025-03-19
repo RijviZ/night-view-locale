@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nightview/app_localization.dart';
 import 'package:nightview/constants/colors.dart';
 import 'package:nightview/constants/text_styles.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/providers/language_provider.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +91,7 @@ class LanguageSwitcher extends StatelessWidget {
       builder: (context) => AlertDialog(
         title: Center(
           child: Text(
-            AppLocalizations.of(context)!.selectLanguage,
+            S.of(context).select_language,
             style: TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.bold,

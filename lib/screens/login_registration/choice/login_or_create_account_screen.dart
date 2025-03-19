@@ -3,12 +3,14 @@ import 'package:nightview/app_localization.dart';
 import 'package:nightview/constants/colors.dart';
 import 'package:nightview/constants/icons.dart';
 import 'package:nightview/constants/text_styles.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/screens/login_registration/utility/google_sign_in_manager.dart';
 
 import 'package:nightview/constants/enums.dart';
 import 'package:nightview/constants/values.dart';
 import 'package:nightview/screens/login_registration/login/login_nightview_screen.dart';
 import 'package:nightview/screens/login_registration/creation/create_account_screen_one_personal.dart';
+import 'package:nightview/widgets/icons/flag_top_right_drop_down.dart';
 import 'package:nightview/widgets/icons/logo_top_right.dart';
 import 'package:nightview/widgets/stateless/language_switcher.dart';
 import 'package:nightview/widgets/stateless/login_registration_button.dart';
@@ -24,13 +26,7 @@ class LoginOrCreateAccountScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            ImageInsertDefaultTopRight(
-              //TODO borderRadius flag.
-              imagePath: 'images/flags/dk.png',
-              width: 35,
-              height: 35,
-              borderRadius: 25,
-            ),
+            LanguageFlagDropdown(),
 
             // Positioned(
             //   top: 10,
@@ -58,7 +54,7 @@ class LoginOrCreateAccountScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: LoginRegistrationButton(
-                          text: AppLocalizations.of(context)!.login,
+                          text: S.of(context).login,
                           type: LoginRegistrationButtonType.transparent,
                           textStyle:
                               kTextStyleH3ToP1.copyWith(color: primaryColor),
@@ -73,8 +69,7 @@ class LoginOrCreateAccountScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: LoginRegistrationButton(
-                          text: AppLocalizations.of(context)!
-                              .create_nightview_profile,
+                          text: S.of(context).create_nightview_profile,
                           type: LoginRegistrationButtonType.transparent,
                           filledColor: primaryColor,
                           onPressed: () {

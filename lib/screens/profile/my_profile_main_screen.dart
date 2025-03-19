@@ -5,6 +5,7 @@ import 'package:nightview/app_localization.dart';
 import 'package:nightview/constants/colors.dart';
 import 'package:nightview/constants/text_styles.dart';
 import 'package:nightview/constants/values.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/helpers/users/misc/biography_helper.dart';
 import 'package:nightview/helpers/users/friends/friends_helper.dart';
 import 'package:nightview/helpers/users/misc/profile_picture_helper.dart';
@@ -13,6 +14,7 @@ import 'package:nightview/providers/global_provider.dart';
 import 'package:nightview/screens/login_registration/choice/login_or_create_account_screen.dart';
 import 'package:nightview/screens/night_social/find_new_friends_screen.dart';
 import 'package:nightview/screens/profile/other_profile_main_screen.dart';
+import 'package:nightview/widgets/icons/flag_top_right_drop_down.dart';
 import 'package:nightview/widgets/stateless/language_switcher.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -85,15 +87,12 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.profile),
+        title: Text(S.of(context).profile),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 18.0),
 
-            child: CircleAvatar(
-              backgroundImage: const AssetImage('images/flags/dk.png'),
-              radius: 15.0,
-            ),
+            child: LanguageFlagDropdown(),
 
             // child: LanguageSwitcher(
             //   radius: 15.0,
@@ -128,7 +127,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                               SizedBox(height: kSmallSpacerValue),
                               Text(
                                   // AppLocalizations.of(context)!.biography,
-                                  'Biografi',
+                                  S.of(context).bio,
                                   style: kTextStyleH4),
                               Divider(
                                 color: primaryColor,
@@ -149,7 +148,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                                       TextCapitalization.sentences,
                                   cursorColor: primaryColor,
                                   decoration: InputDecoration.collapsed(
-                                    hintText: 'Skriv her',
+                                    hintText: S.of(context).write_here,
                                     hintStyle: kTextStyleP1,
                                   ),
                                   style: kTextStyleP1,
@@ -169,19 +168,21 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                                 context: context,
                                 builder: (dialogContext) {
                                   return AlertDialog(
-                                    title: Text('Skift billede'),
+                                    title: Text(S.of(context).change_picture),
                                     // AppLocalizations.of(context)!.changePicture,
 
                                     content: Text(
                                         // AppLocalizations.of(context)!.confirmChangePicture,
 
-                                        'Vil du skifte dit profilbillede?'),
+                                        S
+                                            .of(context)
+                                            .change_picture_confirmation),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.of(dialogContext)
                                                 .pop(false),
-                                        child: Text('Nej',
+                                        child: Text(S.of(context).no,
                                             style:
                                                 TextStyle(color: primaryColor)),
                                       ),
@@ -189,7 +190,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                                         onPressed: () =>
                                             Navigator.of(dialogContext)
                                                 .pop(true),
-                                        child: Text('Ja',
+                                        child: Text(S.of(context).yes,
                                             style:
                                                 TextStyle(color: primaryColor)),
                                       ),
@@ -203,7 +204,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Profilbillede opdateret',
+                                        S.of(context).profile_picture_updated,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       backgroundColor: Colors.black,
@@ -218,7 +219,9 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Der skete en fejl under indlæsning af profilbillede',
+                                          S
+                                              .of(context)
+                                              .profile_picture_load_error,
                                           style: TextStyle(color: Colors.white),
                                         ),
                                         backgroundColor: Colors.black,
@@ -235,7 +238,9 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Der skete en fejl under ændring af profilbillede',
+                                        S
+                                            .of(context)
+                                            .profile_picture_change_error,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       backgroundColor: Colors.black,
@@ -285,7 +290,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                               ),
                               child: Text(
                                   // AppLocalizations.of(context)!.save,
-                                  'Gem',
+                                  S.of(context).save,
                                   style: kTextStyleP1),
                             ),
                           ),
@@ -301,7 +306,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                     children: [
                       Text(
                           // AppLocalizations.of(context)!.friends,
-                          'Venner',
+                          S.of(context).friends,
                           style: kTextStyleH2),
                     ],
                   ),
@@ -372,13 +377,13 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                           title: Center(
                             child: Text(
                               // AppLocalizations.of(context)!.privacyPolicy,
-                              'Privatlivspolitik',
+                              S.of(context).privacy_policy,
                               style: TextStyle(color: primaryColor),
                             ),
                           ),
                           content: Text(
                               // AppLocalizations.of(context)!.openPrivacyPolicyInBrowser,
-                              'Vil du åbne privatlivspolitikken i din browser?'),
+                              S.of(context).privacy_policy_open),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -386,7 +391,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                               },
                               child: Text(
                                   // AppLocalizations.of(context)!.no,
-                                  'Nej',
+                                  S.of(context).no,
                                   style: TextStyle(color: grey)),
                             ),
                             TextButton(
@@ -397,7 +402,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                               },
                               child: Text(
                                   // AppLocalizations.of(context)!.yes,
-                                  'Ja',
+                                  S.of(context).yes,
                                   style: TextStyle(color: grey)),
                             ),
                           ],
@@ -406,7 +411,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                     },
                     tooltip:
                         // AppLocalizations.of(context)!.privacyPolicy,
-                        'Privatlivspolitik',
+                        S.of(context).privacy_policy,
                   ),
                   IconButton(
                     icon: FaIcon(
@@ -422,13 +427,13 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                           title: Center(
                             child: Text(
                               // AppLocalizations.of(context)!.deleteUser,
-                              'Slet bruger',
+                              S.of(context).delete_user,
                               style: TextStyle(color: redAccent),
                             ),
                           ),
                           content: Text(
                             // AppLocalizations.of(context)!.confirmDeleteUserAndAllData,
-                            'Er du sikker på, at du vil slette din bruger? Alt data associeret med din bruger vil blive fjernet.',
+                            S.of(context).delete_confirmation,
                           ),
                           actions: [
                             TextButton(
@@ -437,7 +442,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                               },
                               child: Text(
                                   // AppLocalizations.of(context)!.no,
-                                  'Nej',
+                                  S.of(context).no,
                                   style: TextStyle(color: primaryColor)),
                             ),
                             TextButton(
@@ -462,10 +467,12 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                                     builder: (errorContext) => AlertDialog(
                                       title: Text(
                                           // AppLocalizations.of(context)!.deleteUserError,
-                                          'Fejl ved sletning af bruger'),
+                                          S.of(context).delete_user_error),
                                       content: Text(
                                         // AppLocalizations.of(context)!.deleteUserErrorTryAgainLater,
-                                        'Der skete en fejl under sletning af din bruger. Prøv igen senere. Hvis du oplever problemer med din bruger fremadrettet kan du sende en mail til business@night-view.dk.',
+                                        S
+                                            .of(context)
+                                            .delete_user_error_description,
                                       ),
                                       actions: [
                                         TextButton(
@@ -474,7 +481,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                                           },
                                           child: Text(
                                               // AppLocalizations.of(context)!.okay,
-                                              'OK',
+                                              S.of(context).ok,
                                               style: TextStyle(
                                                   color: primaryColor)),
                                         ),
@@ -485,7 +492,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                               },
                               child: Text(
                                   // AppLocalizations.of(context)!.yes,
-                                  'Ja',
+                                  S.of(context).yes,
                                   style: TextStyle(color: redAccent)),
                             ),
                           ],
@@ -494,7 +501,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                     },
                     tooltip:
                         // AppLocalizations.of(context)!.deleteUser,
-                        'Slet bruger',
+                        S.of(context).delete_user,
                   ),
                   IconButton(
                     icon: FaIcon(
@@ -509,13 +516,13 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                           title: Center(
                             child: Text(
                               // AppLocalizations.of(context)!.logOff,
-                              'Log af',
+                              S.of(context).logout,
                               style: TextStyle(color: redAccent),
                             ),
                           ),
                           content: Text(
                               // AppLocalizations.of(context)!.confirmLogOff,
-                              'Er du sikker på, at du vil logge af?'),
+                              S.of(context).logout_confirmation),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -523,7 +530,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                               },
                               child: Text(
                                   // AppLocalizations.of(context)!.no,
-                                  'Nej',
+                                  S.of(context).no,
                                   style: TextStyle(color: primaryColor)),
                             ),
                             TextButton(
@@ -542,7 +549,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                               },
                               child: Text(
                                   // AppLocalizations.of(context)!.yes,
-                                  'Ja',
+                                  S.of(context).yes,
                                   style: TextStyle(color: redAccent)),
                             ),
                           ],
@@ -551,7 +558,7 @@ class _MyProfileMainScreenState extends State<MyProfileMainScreen> {
                     },
                     tooltip:
                         // AppLocalizations.of(context)!.logOff,
-                        'Log af',
+                        S.of(context).logout,
                   ),
                 ],
               ),

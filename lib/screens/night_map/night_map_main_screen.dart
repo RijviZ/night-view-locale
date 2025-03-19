@@ -10,6 +10,7 @@ import 'package:nightview/constants/colors.dart';
 import 'package:nightview/constants/icons.dart';
 import 'package:nightview/constants/text_styles.dart';
 import 'package:nightview/constants/values.dart';
+import 'package:nightview/generated/l10n.dart';
 import 'package:nightview/helpers/clubs/club_data_helper.dart';
 import 'package:nightview/locations/location_service.dart';
 import 'package:nightview/models/clubs/club_data.dart';
@@ -119,7 +120,7 @@ class _NightMapMainScreenState extends State<NightMapMainScreen> {
                   children: [
                     //TOP part
                     Text(
-                      AppLocalizations.of(context)!.activeUsersNow,
+                      S.of(context).current_users,
                       style: kTextStyleH3,
                     ),
                     Row(
@@ -276,8 +277,7 @@ class _NightMapMainScreenState extends State<NightMapMainScreen> {
                                     controller: controller,
                                     leading: Icon(Icons.search_sharp,
                                         color: primaryColor),
-                                    hintText: AppLocalizations.of(context)!
-                                        .searchForLocations,
+                                    hintText: S.of(context).search_locations,
                                     hintStyle:
                                         WidgetStateProperty.all(kTextStyleP2),
                                     backgroundColor:
@@ -451,7 +451,7 @@ class _NightMapMainScreenState extends State<NightMapMainScreen> {
                                           padding: const EdgeInsets.all(16.0),
                                           child: Text(
                                             // AppLocalizations.of(context)!.noLocationsFound,
-                                            "Ingen lokationer fundet",
+                                            S.of(context).no_locations_found,
                                             style: TextStyle(
                                                 color: redAccent, fontSize: 14),
                                           ),
@@ -688,7 +688,7 @@ class _NightMapMainScreenState extends State<NightMapMainScreen> {
           const SizedBox(height: 16),
           Text(
             // AppLocalizations.of(context)!.fetchingLocations,
-            'Henter lokationer',
+            S.of(context).fetching_locations,
             style: kTextStyleP1.copyWith(color: primaryColor),
           ),
         ],
